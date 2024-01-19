@@ -52,6 +52,14 @@ return [
             'throw' => false,
         ],
 
+        'foto' => [
+            'driver' => 'local',
+            'root' => storage_path('app/foto_pago'),
+            'url' => env('APP_URL').'/foto_pago',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -80,6 +88,7 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
         public_path('foto') => storage_path('app/foto'),
+        public_path('foto_pago') => storage_path('app/foto_pago'),
     ],
 
 ];

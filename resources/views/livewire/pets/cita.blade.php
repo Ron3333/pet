@@ -20,13 +20,13 @@
                             @endforeach
                         </ul>
                         
-                       <x-input-error :messages="$errors->get('petId')" class="mt-2" />
+                       <x-input-error :messages="$errors->get('petId')" class="mt-1" />
                       
                     </div>
                     <div>
                         <br>
                         <label for="observaciones" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celos. heridas, comportamiento extraño, malestar. operaciones reciente, etc :</label>
-                        <textarea wire:model="observaciones" name="observaciones" id="Observaciones" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Problemas de piel, de estomagom verrugas, heridas, etc..."></textarea> 
+                        <textarea wire:model="observaciones" name="observaciones" id="Observaciones" rows="1" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Problemas de piel, de estomagom verrugas, heridas, etc..."></textarea> 
                         <x-input-error :messages="$errors->get('observaciones')" class="mt-2" />
                     </div>
                     <div>
@@ -153,7 +153,7 @@
 
 
             <x-modal name="confirm-pay" :show="$errors->isNotEmpty()" focusable>
-                <form class="p-6">
+                <form wire:submit="confirmaPay"  class="p-6">
 
                     <h2 class="text-lg font-medium text-gray-900">
                        Pago de la cita
@@ -163,7 +163,24 @@
                        Suba el comprobante para confirmar la cita
                     </p>
 
-                   
+                    <p><center>
+                    <span style="color: red;"><a href="#">Modo de pago 1</a></span> 
+                    <span style="color: blue;"><a href="#">Modo de pago 2</a></span> 
+                    <span style="color: green;"><a href="#">Modo de pago 3</a></span> 
+                  </center>
+                    </p>
+
+                    <div class="mt-6">
+                         <label for="foto-pago" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto comprobante de pago:</label><br>
+                          <input wire:model="foto_pago" type="file" id="foto-pago" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  >
+                          <x-input-error :messages="$errors->get('foto_pago')" class="mt-2" />
+                            <br>
+
+                            <center><div wire:loading wire:target="foto_pago">Cargando...</div></center>
+                        @if ($foto_pago) 
+                         <center><img src="{{ $foto_pago->temporaryUrl() }}"></center>
+                         @endif
+                    </div>
 
                     <div class="mt-6 flex justify-end">
                         <x-secondary-button x-on:click="$dispatch('close')">

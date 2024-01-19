@@ -5,16 +5,17 @@ namespace App\Livewire\Pets;
 
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
+use Livewire\WithFileUploads;
+use Carbon\CarbonImmutable;
 use Livewire\Component;
 use App\Models\Pet;
-use Carbon\Carbon;
-use Carbon\CarbonImmutable;
 
 
 #[Layout('layouts.app')] 
 class Cita extends Component
 {
-    //public  $petSelect;
+    use WithFileUploads;
+    
     public  $pets;
     public  $petId = [];
     public  $observaciones = '';
@@ -24,6 +25,7 @@ class Cita extends Component
     public  $dias ;
     public  $fecha_cita ;
     public  $mensaje ;
+    public  $foto_pago;
 
     public function render()
     {        
@@ -52,8 +54,6 @@ class Cita extends Component
 
     public function crearCita(){
 
-       
-
         $this->validate([
                 'petId' =>'required',
                 'observaciones' => 'required',
@@ -68,7 +68,6 @@ class Cita extends Component
 
         $this->fecha_cita="";
         $this->dispatch('open-modal', 'confirm-pay');
-        $this->reset('petId','observaciones','tipo_de_grooming','nudos');
         //return redirect()->to('/dashboard');
 
                
@@ -100,6 +99,20 @@ class Cita extends Component
     public function cita($fecha){
         $this->fecha_cita = $fecha;
         
+    }
+
+    public function confirmaPay(){
+
+        $this->validate([
+                
+                'foto_pago' => 'required|image|max:2048'
+         ]);
+
+         $namephoto = md5($this->foto_pago . microtime()).'.'.$this->foto_pago->extension();
+         $this->foto_pago->storeAs('foto_pago', $namephoto);
+         $this->reset('petId','observaciones','tipo_de_grooming','nudos','fecha_cita');
+         return redirect()->to('/dashboard');
+
     }
 
 }
