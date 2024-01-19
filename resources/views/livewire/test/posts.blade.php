@@ -12,6 +12,8 @@
         @include('livewire.test.create')
     @endif
 
+   
+
     
   
     <table class="table table-bordered mt-5">

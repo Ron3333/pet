@@ -5,12 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- PWA  -->
-        <meta name="theme-color" content="#6777ef"/>
-        <link rel="apple-touch-icon" href="{{ asset('logo.PNG') }}">
-        <link rel="manifest" href="{{ asset('/manifest.json') }}">
-
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Laravel') }} </title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -18,6 +13,15 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <style type="text/css">
+            .max-w-5xl {
+                max-width: 50rem;
+             }
+             .grooming{
+                display: inline;
+             }
+        </style>
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -36,15 +40,9 @@
             <main>
                 {{ $slot }}
             </main>
-            <script src="{{ asset('/sw.js') }}"></script>
+            
            
         </div>
-             <script>
-                    if (!navigator.serviceWorker.controller) {
-                        navigator.serviceWorker.register("/sw.js").then(function (reg) {
-                            console.log("Service worker has been registered for scope: " + reg.scope);
-                        });
-                    }
-            </script>
+            
     </body>
 </html>

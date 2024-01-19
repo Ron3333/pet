@@ -21,9 +21,36 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'cant_perro',
         'activar_horario_especial',
-        'costo_feriado',
+        'administrador',
+        'Apellido',
+        'cant_perro',
+        'costo_dias_feriado',
+        'costo_dias_normales',
+        'costo_hospedaje',
+        'codigo_de_verificacion',
+        'descuento_primer_dia',
+        'descuento_primer_dia_feriado',
+        'descuento ultimo dia',
+        'descuento_ultimo_dia_feriado',
+        'dias_feriados',
+        'dias_hospedaje',
+        'dias_normales',
+        'fecha_busqueda',
+        'fecha_llegada',
+        'fecha_fin_feriado',
+        'fecha_inicio_feriado',
+        'fecha_feriado_rango_fin',
+        'fecha_feriado_rango_Inicio',
+        'foto_perfil',
+        'idioma',
+        'pets', //OJO
+        'multiples_groomings',
+        'persona',
+        'precio_descuento_primer_dia',
+        'precio_descuento_ultimo_dia',
+        'selección_de_perro',
+        'telefono',      
     ];
 
     /**
@@ -46,4 +73,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function pets(): HasMany
+    {
+        return $this->hasMany(Pet::class);
+    }
+
+    public function grooming(): HasMany
+    {
+        return $this->hasMany(Grooming::class);
+    }
 }

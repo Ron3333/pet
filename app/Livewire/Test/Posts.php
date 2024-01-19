@@ -11,6 +11,7 @@ class Posts extends Component
 {
     public $posts, $title, $description, $post_id ;
     public $updateMode = false;
+    public $raza = "pequines";
    
     /**
      * The attributes that are mass assignable.

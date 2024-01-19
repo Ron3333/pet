@@ -36,9 +36,12 @@ new class extends Component
                     <x-nav-link :href="route('pets.mascota')" :active="request()->routeIs('pets.mascota')" wire:navigate>
                         Mascota
                     </x-nav-link>
-                    <x-nav-link :href="route('test.posts')" :active="request()->routeIs('test.posts')" wire:navigate>
-                        Post
+                     <x-nav-link :href="route('pets.cita')" :active="request()->routeIs('pets.cita')" wire:navigate>
+                        Cita
                     </x-nav-link>
+                  <!--   <x-nav-link :href="route('test.posts')" :active="request()->routeIs('test.posts')" wire:navigate>
+                        Post
+                    </x-nav-link> -->
                 </div>
             </div>
 

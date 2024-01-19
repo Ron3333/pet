@@ -27,6 +27,8 @@ Route::view('profile', 'profile')
 Route::middleware('auth')->group(function () {
     Volt::route('mascota', 'pets.mascota')
         ->name('pets.mascota');
+    Volt::route('cita', 'pets.cita')
+        ->name('pets.cita');
     Volt::route('post', 'test.posts')
         ->name('test.posts');
 });
