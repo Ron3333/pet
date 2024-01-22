@@ -47,7 +47,7 @@ class Cita extends Component
          }
 
     	   $this->pets = Pet::where('user_id', $id )
-    				     ->orderByDesc('id')
+    				     ->orderBy('id','ASC')
     				     ->get(); 
        
     }

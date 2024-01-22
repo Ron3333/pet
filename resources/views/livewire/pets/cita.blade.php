@@ -10,12 +10,12 @@
 
                   
                 </header>
-                <form wire:submit="crearCita" class="mt-6 space-y-6">
+                <form wire:submit.prevent="crearCita" class="mt-6 space-y-6">
                     <h4>Seleccione el perro para el grooming</h4><br>
                     <div>
                         <ul>
-                            @foreach($pets as $pet)
-                                 <li><input  wire:model="petId" type="radio"  value="{{$pet->id}}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"> 
+                            @foreach($pets as  $pet)
+                                 <li><input  wire:model.defer="petId" type="radio"  value="{{$pet->id}}" id="pet_id_{{$pet->id}}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"> 
                                  <b> {{ $pet->nombre }} </b> <img src="/foto/{{$pet->foto}}" width="50px" class="grooming" ></li>
                             @endforeach
                         </ul>
@@ -25,30 +25,28 @@
                     </div>
                     <div>
                         <br>
-                        <label for="observaciones" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celos. heridas, comportamiento extraño, malestar. operaciones reciente, etc :</label>
+                        <label for="Observaciones" id="observacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celos. heridas, comportamiento extraño, malestar. operaciones reciente, etc :</label>
                         <textarea wire:model="observaciones" name="observaciones" id="Observaciones" rows="1" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Problemas de piel, de estomagom verrugas, heridas, etc..."></textarea> 
                         <x-input-error :messages="$errors->get('observaciones')" class="mt-2" />
                     </div>
                     <div>
                        
-                       <x-input-label for="tipo_de_grooming" :value="__('Tipo de Grooming:')" />
+                       <h2>Tipos de Grooming:</h2>
                        <div class="flex items-center mb-4">
-                            <input wire:model.live="tipo_de_grooming" id="full_grooming" type="radio" value="fullGrooming" name="tipo_de_grooming" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="hembra" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Full Grooming</label>
-
+                            <input wire:model.live="tipo_de_grooming" id="fullGrooming" type="radio" value="fullGrooming" name="tipo_de_grooming" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="fullGrooming" id="fullGrooming" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Full Grooming</label>
                             &nbsp;&nbsp;&nbsp;
-
                             <input wire:model.live="tipo_de_grooming"  id="full_grooming_plus" type="radio" value="fullGroomingPlus" name="tipo_de_grooming" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="macho" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Full Grooming Plus</label>
+                            <label for="full_grooming_plus" id="fullGroomingPlus-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Full Grooming Plus</label>
                              &nbsp;&nbsp;&nbsp;
                              <input wire:model.live="tipo_de_grooming" id="sanitario" type="radio" value="sanitario" name="tipo_de_grooming" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="hembra" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Baño Sanitario</label>
+                            <label for="sanitario" id="sanitario-5" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Baño Sanitario</label>
                              &nbsp;&nbsp;&nbsp;
                              <input wire:model.live="tipo_de_grooming" id="solo" type="radio" value="solo" name="tipo_de_grooming" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="hembra" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Solo Baño</label>
+                            <label for="solo" id="solo-8" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Solo Baño</label>
                              &nbsp;&nbsp;&nbsp;
                              <input wire:model.live="tipo_de_grooming" id="corte" type="radio" value="corte" name="tipo_de_grooming" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="hembra" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Corte de Uñas</label>
+                            <label for="corte" id="corte-7" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Corte de Uñas</label>
                         </div>
                         
                           @if(  $tipo_de_grooming == "fullGrooming" )
@@ -83,15 +81,15 @@
 
                     <div>
                        
-                       <x-input-label for="nudos" :value="__('Tiene Nudos:')" />
+                       <h2>Tiene Nudos:</h2>
                        <div class="flex items-center mb-4">
-                            <input wire:model="nudos" id="si_nudo" type="radio" value="si" name="nudos" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="hembra" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SI</label>
+                            <input wire:model="nudos" id="si_nudo_x" type="radio" value="si" name="nudos" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="si_nudo_x" id="si_nudo_x-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SI</label>
 
                             &nbsp;&nbsp;&nbsp;
 
-                            <input wire:model="nudos"  id="no_nudo" type="radio" value="full_grooming_plus" name="nudos" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="macho" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">NO</label>       
+                            <input wire:model="nudos"  id="no_nudo_x" type="radio" value="full_grooming_plus" name="nudos" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="no_nudo_x" id="no_nudo_x-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">NO</label>       
                        </div>
                         <x-input-error :messages="$errors->get('nudos')"  class="mt-2" />
                     </div>
@@ -99,9 +97,9 @@
                         <h1>CALENDARIO</h1><br>
                         <div>
                             <div>
-                                <button wire:click.prevent="previous" class="bg-gray-800 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded-l">Prev</button>&nbsp;&nbsp;&nbsp;
+                                <button wire:click.prevent="previous()" class="bg-gray-800 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded-l">Prev</button>&nbsp;&nbsp;&nbsp;
                            
-                                <button wire:click.prevent="next" class="bg-gray-800 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded-l">Next</button>
+                                <button wire:click.prevent="next()" class="bg-gray-800 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded-l">Next</button>
                             </div>
                         </div><br>
                         <center><h2><b>{{ $dias[0]['fecha']->format('F , Y') }}</b></h2></center>
@@ -171,7 +169,7 @@
                     </p>
 
                     <div class="mt-6">
-                         <label for="foto-pago" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto comprobante de pago:</label><br>
+                         <label for="foto-pago" id="foto-pago-1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto comprobante de pago:</label><br>
                           <input wire:model="foto_pago" type="file" id="foto-pago" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  >
                           <x-input-error :messages="$errors->get('foto_pago')" class="mt-2" />
                             <br>
@@ -183,7 +181,7 @@
                     </div>
 
                     <div class="mt-6 flex justify-end">
-                        <x-secondary-button x-on:click="$dispatch('close')">
+                        <x-secondary-button x-on:click.prevent="$dispatch('close')">
                             {{ __('Cancel') }}
                         </x-secondary-button>
 

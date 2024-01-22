@@ -2,13 +2,12 @@
 
 namespace App\Livewire\Pets;
 
-//use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\WithFileUploads;
 use Livewire\Component;
-use App\Models\Pet;
 use App\Models\User;
+use App\Models\Pet;
 
 #[Layout('layouts.app')] 
 class Mascota extends Component
