@@ -9,6 +9,8 @@ class Grooming extends Model
 {
     use HasFactory;
 
+    protected $table = 'grooming';
+
     protected $fillable = [
 		
 		'Cancelado',

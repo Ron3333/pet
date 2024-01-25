@@ -15,7 +15,7 @@
                     <div>
                         <ul>
                             @foreach($pets as  $pet)
-                                 <li><input  wire:model.defer="petId" type="radio"  value="{{$pet->id}}" id="pet_id_{{$pet->id}}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"> 
+                                 <li><input  wire:model="petId" type="radio"  value="{{$pet->id}}" id="pet_id_{{$pet->id}}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"> 
                                  <b> {{ $pet->nombre }} </b> <img src="/foto/{{$pet->foto}}" width="50px" class="grooming" ></li>
                             @endforeach
                         </ul>
@@ -88,7 +88,7 @@
 
                             &nbsp;&nbsp;&nbsp;
 
-                            <input wire:model="nudos"  id="no_nudo_x" type="radio" value="full_grooming_plus" name="nudos" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input wire:model="nudos"  id="no_nudo_x" type="radio" value="no" name="nudos" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="no_nudo_x" id="no_nudo_x-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">NO</label>       
                        </div>
                         <x-input-error :messages="$errors->get('nudos')"  class="mt-2" />
@@ -102,7 +102,8 @@
                                 <button wire:click.prevent="next()" class="bg-gray-800 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded-l">Next</button>
                             </div>
                         </div><br>
-                        <center><h2><b>{{ $dias[0]['fecha']->format('F , Y') }}</b></h2></center>
+                        <!-- <center><h2><b>{{-- $dias[0]['fecha']->format('F , Y') --}}</b></h2></center> -->
+                        <center><h2><b><span>Fecha de Hoy </span>{{ date('Y-m-d') }}</b></h2></center><br>
                         
                         <table>
                             <tr class="bg-gray-100">
@@ -114,14 +115,45 @@
                                 <td class="border px-4 py-2" >Sábado</td>
                                 <td class="border px-4 py-2" >Domingo</td>
                             </tr>
-                            <tr style="background-color: blue;" class="text-white" >
+                            <tr class="text-white" >
+
                              @foreach($dias as $dia)
-                               <td align="center" wire:click.prevent="cita('{{$dia['fecha']}}')" class="border px-4 py-2" ><b>{{ $dia['fecha']->format('d') }}</b></td> 
-                            @endforeach
+                               @if( $dia['fecha']->format('N') < 6)
+                                   @if( $dia['fecha']->format('Y-m-d') < date('Y-m-d')   )
+                                     <td align="center"  class="border px-4 py-2"  style="color: white; background-color:red;" ><b>{{ $dia['fecha']->format('d') }}</b></td>
+                                  @else
+                                     <td align="center" wire:click.prevent="dia('{{$dia['fecha']}}')" class="border px-4 py-2"  style="background-color: white; color: black;" ><b>{{ $dia['fecha']->format('d') }}</b></td> 
+                                  @endif
+                               @elseif( $dia['fecha']->format('N') == 6 OR $dia['fecha']->format('N') == 7)
+                                <td align="center"  class="border px-4 py-2" style="color: white; background-color:red;" ><b>{{ $dia['fecha']->format('d') }}</b></td> 
+                               @endif
+                             @endforeach
                             </tr>
                         </table>
                         <br>
-                        {{ $fecha_cita }}
+                         
+                        @if(  $hora_cita  )
+                         <h2><b>{{ date("d-M-Y", strtotime($fecha_cita)) }}</b></h2>
+                         <table>
+                           <tr style="background-color: green ;" class="text-white" >
+
+                            <td><button  wire:click.prevent="fechaCita('{{$fecha_cita}}' , '10 am' )" class="btn btn-blue" style="border-style: solid; border-color: black; border-width: medium; " >&nbsp;&nbsp;&nbsp; 10:00 am &nbsp;&nbsp;&nbsp;</button></td>
+                            <td><button wire:click.prevent="fechaCita('{{$fecha_cita}}', '2 pm' )"  class="btn btn-blue" style="border-style: solid; border-color: black; border-width: medium;">&nbsp;&nbsp;&nbsp; 2:00 pm &nbsp;&nbsp;&nbsp;</button></td>
+                            <td><button wire:click.prevent="fechaCita( '{{$fecha_cita}}', '4 pm' )" class="btn btn-blue" style="border-style: solid; border-color: black; border-width: medium;">&nbsp;&nbsp;&nbsp; 4:00 pm &nbsp;&nbsp;&nbsp;</button></td>
+                           
+                           
+                         </tr>
+                       </table>
+                       @endif 
+                       <br>
+                       @if(!empty($cita))
+                       <h1><b>Día de la Cita : {{ $cita }}</b></h1>
+                       @else
+                       <h1><b>Elija una cita</b></h1>
+                       @endif
+
+
+                        <input wire:model="fecha_cita" type="hidden" id="custId" name="custId" value="{{$cita }}">
                         
                         <h1 style="color: red;">{{ $mensaje }}</h1><br>
                     </div>

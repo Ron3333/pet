@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\WithFileUploads;
 use Carbon\CarbonImmutable;
+use App\Models\Pregrooming;
+use App\Models\Grooming;
 use Livewire\Component;
 use App\Models\Pet;
 
@@ -17,7 +19,7 @@ class Cita extends Component
     use WithFileUploads;
     
     public  $pets;
-    public  $petId = [];
+    public  $petId;
     public  $observaciones = '';
     public  $tipo_de_grooming = '';
     public  $nudos = '';
@@ -26,6 +28,8 @@ class Cita extends Component
     public  $fecha_cita ;
     public  $mensaje ;
     public  $foto_pago;
+    public  $hora_cita = false;
+    public  $cita ;
 
     public function render()
     {        
@@ -54,19 +58,46 @@ class Cita extends Component
 
     public function crearCita(){
 
+         if(!isset($this->cita)){
+            $this->mensaje="Selecciones una fecha para la cita";
+            return;
+        }
+
         $this->validate([
                 'petId' =>'required',
                 'observaciones' => 'required',
                 'tipo_de_grooming' => 'required',
                 'nudos' => 'required',
+                'cita' => 'required',
                   ]);
 
-        if(!isset($this->fecha_cita)){
-            $this->mensaje="Selecciones una fecha para la cita";
-            return;
+
+
+        $pet =  Pet::where('id', $this->petId )->first();
+
+        if($this->tipo_de_grooming == 'fullGrooming'){
+           $precio=50;
+        }elseif ($this->tipo_de_grooming == 'fullGroomingPlus') {
+            $precio=50;
+        }elseif ($this->tipo_de_grooming == 'sanitario') {
+            $precio=40;
+        }elseif ($this->tipo_de_grooming == 'solo') {
+            $precio=35;
+        }elseif ($this->tipo_de_grooming == 'corte') {
+            $precio=10;
         }
 
-        $this->fecha_cita="";
+        $pregrooming = new Pregrooming;
+        $pregrooming->depósito_inicial = $precio;
+        $pregrooming->fecha = $this->cita;
+        $pregrooming->nudos = $this->nudos;
+        $pregrooming->observaciones = $this->observaciones ;
+        $pregrooming->perro = $pet->nombre ;
+        $pregrooming->tipo_groming = $this->tipo_de_grooming;
+        $pregrooming->save();
+
+        //$this->fecha_cita="";
+        //$this->cita="";
         $this->dispatch('open-modal', 'confirm-pay');
         //return redirect()->to('/dashboard');
 
@@ -96,9 +127,22 @@ class Cita extends Component
 
     }
 
-    public function cita($fecha){
+    public function dia($fecha){
+
+        //$this->fecha_cita = date("d", strtotime($fecha));
         $this->fecha_cita = $fecha;
-        
+        $this->hora_cita = true;
+        $this->cita="";
+
+    }
+
+    public function fechaCita($fecha, $hora){
+
+       
+        $fecha = date("d-M-Y", strtotime($fecha));
+
+        $this->cita = $fecha.' : '.$hora;
+ 
     }
 
     public function confirmaPay(){
