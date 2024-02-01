@@ -21,6 +21,23 @@
              .grooming{
                 display: inline;
              }
+             .hora{
+                border-style:solid;
+                 border-color: black; 
+                 border-width: medium;
+             }
+
+              .hora:hover{
+                background-color: green;
+             }
+
+            .hora2{
+                border-style:solid;
+                 border-color: black; 
+                 border-width: medium;
+                 background-color: red;
+             }
+
         </style>
     </head>
     <body class="font-sans antialiased">

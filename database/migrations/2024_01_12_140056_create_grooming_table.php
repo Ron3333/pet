@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('grooming', function (Blueprint $table) {
             $table->id();
-            $table->string('Cancelado')->nullable();
-            $table->string('cobro_multiple')->nullable();
+            $table->string('Cancelado');
+            $table->string('cobro_multiple');
             $table->string('comprobante_2do_pago')->nullable();
             $table->string('comprobante_deposito')->nullable();
-            $table->string('depósito_validado')->nullable();
+            $table->string('depósito_validado');
             $table->unsignedBigInteger('user_id');
-            $table->datetime('fecha');
+            $table->string('fecha');
             $table->string('fecha_texto');
             $table->string('fotos_resultado')->nullable();
             $table->decimal('monto_2do_pago', 10, 2)->unsigned()->nullable();
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('nudos');
             $table->text('observaciones');
             $table->text('otros_conceptos')->nullable();
-            $table->string('pago_en_efectivo')->nullable();
+            $table->string('pago_en_efectivo');
             $table->unsignedBigInteger('pet_id')->nullable();
             $table->decimal('precio_grooming', 10, 2);
             $table->decimal('precio_comportamiento', 10, 2)->unsigned()->nullable();
@@ -35,8 +35,9 @@ return new class extends Migration
             $table->decimal('precio_otros_conceptos', 10, 2)->unsigned()->nullable();
             $table->decimal('precio_total', 10, 2)->unsigned()->nullable();
             $table->decimal('precio_tratamiento', 10, 2)->unsigned()->nullable();
-            $table->decimal('propina', 10, 2)->unsigned();
-            $table->string('realizado')->nullable();
+            $table->decimal('propina', 10, 2)->unsigned()->nullable();
+            $table->string('realizado');
+            $table->string('solicitar_pago');
             $table->string('tipo_de_grooming');
             $table->foreign('pet_id')->references('id')->on('pets');
             $table->foreign('user_id')->references('id')->on('users');

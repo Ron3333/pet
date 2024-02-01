@@ -15,11 +15,15 @@ return new class extends Migration
             $table->id();
             $table->decimal('depósito_inicial', 10, 2);
             $table->string('fecha');
+            $table->string('fecha_texto');
             $table->string('nudos');
             $table->text('observaciones');
             $table->string('perro');
+            $table->string('foto');
             $table->string('tipo_groming');
             $table->timestamps();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('pet_id');
         });
     }
 

@@ -16,12 +16,12 @@
                 <form wire:submit="createPet" class="mt-6 space-y-6">
                     <div>
                         <x-input-label for="nombre" :value="__('Nombre:')" />
-                        <x-text-input wire:model="nombre" id="nombre" name="nombre" value="{{$nombre}}" type="text" class="mt-1 block w-full" autocomplete="nombre" required />
+                        <x-text-input wire:model="nombre" id="nombre" name="nombre"  type="text" class="mt-1 block w-full" autocomplete="nombre" required />
                         <x-input-error :messages="$errors->get('nombre')" class="mt-2" />
                     </div>
                     <div>
                         <x-input-label for="apellido" :value="__('Apellido:')" />
-                        <x-text-input wire:model="apellido" id="apellido" name="apellido" type="text" class="mt-1 block w-full" autocomplete="apellido" required />
+                        <x-text-input wire:model="apellido" id="apellido" name="apellido"  type="text" class="mt-1 block w-full" autocomplete="apellido" required />
                         <x-input-error :messages="$errors->get('apellido')" class="mt-2" />
                     </div>
                     <div>

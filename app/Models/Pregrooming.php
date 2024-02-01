@@ -18,6 +18,8 @@ class Pregrooming extends Model
 		'observaciones',
 		'perro',
 		'tipo_groming',	
+		'foto',	
+		'user_id',	
 	];
 
 }

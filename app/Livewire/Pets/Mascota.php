@@ -46,7 +46,7 @@ class Mascota extends Component
             $id = Auth::id();
             $user = User::find($id);
          }
-         $this->nombre= $user->name;
+         //$this->nombre= $user->name;
     }
     public function render()
     {
