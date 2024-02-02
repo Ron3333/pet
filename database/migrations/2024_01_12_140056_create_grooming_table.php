@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('grooming', function (Blueprint $table) {
             $table->id();
-            $table->string('Cancelado');
+            $table->string('cancelado');
             $table->string('cobro_multiple');
             $table->string('comprobante_2do_pago')->nullable();
             $table->string('comprobante_deposito')->nullable();

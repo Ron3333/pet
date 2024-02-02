@@ -23,7 +23,7 @@ class User extends Authenticatable
         'password',
         'activar_horario_especial',
         'administrador',
-        'Apellido',
+        'apellido',
         'cant_perro',
         'costo_dias_feriado',
         'costo_dias_normales',

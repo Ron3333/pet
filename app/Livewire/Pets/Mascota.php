@@ -8,6 +8,8 @@ use Livewire\WithFileUploads;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\Pet;
+use Carbon\Carbon;
+
 
 #[Layout('layouts.app')] 
 class Mascota extends Component
@@ -46,7 +48,7 @@ class Mascota extends Component
             $id = Auth::id();
             $user = User::find($id);
          }
-         //$this->nombre= $user->name;
+         $this->apellido= $user->apellido;
     }
     public function render()
     {
@@ -98,7 +100,10 @@ class Mascota extends Component
              $this->social3 = 'No socializa';
          }
          
-
+        $currentDateTime = Carbon::now();
+        $fecha_nac = Carbon::now()->subYear($this->edad)->subMonths($this->meses);
+        $fecha_nac = date("M d, Y h:m a", strtotime($fecha_nac));
+        
         $pet = new Pet;
         $pet->user_id = $id;
         $pet->nombre = $this->nombre;
@@ -108,6 +113,7 @@ class Mascota extends Component
         $pet->sexo = $this->sexo;
         $pet->size = $this->size;
         $pet->peso = $this->peso;
+        $pet->fecha_nac = $fecha_nac;
         $pet->actitud = $this->actitud;
         $pet->socializa = $this->social0.' '.$this->social1.' '.$this->social2.' '.$this->social3;
         $pet->muerde = $this->muerde;

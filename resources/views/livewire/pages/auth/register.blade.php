@@ -12,6 +12,9 @@ use Livewire\Volt\Component;
 new #[Layout('layouts.guest')] class extends Component
 {
     public string $name = '';
+    public string $apellido = '';
+    public string $persona = '';
+    public string $telefono = '';
     public string $email = '';
     public string $password = '';
     public string $password_confirmation = '';
@@ -23,6 +26,9 @@ new #[Layout('layouts.guest')] class extends Component
     {
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
+            'apellido' => ['required', 'string', 'max:255'],
+            'persona' => ['required', 'string', 'max:255'],
+            'telefono' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -41,9 +47,21 @@ new #[Layout('layouts.guest')] class extends Component
     <form wire:submit="register">
         <!-- Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
+            <x-input-label for="name" :value="__('Nombre')" />
             <x-text-input wire:model="name" id="name" class="block mt-1 w-full" type="text" name="name" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        </div>
+
+         <div class="mt-4" >
+            <x-input-label for="apellido" :value="__('Apellido')" />
+            <x-text-input wire:model="apellido" id="apellido" class="block mt-1 w-full" type="text" name="apellido" required autofocus autocomplete="name" />
+            <x-input-error :messages="$errors->get('apellido')" class="mt-2" />
+        </div>
+
+          <div class="mt-4">
+            <x-input-label for="telefono" :value="__('N° Telefóno:')" />
+            <x-text-input wire:model="telefono" id="telefono" class="block mt-1 w-full" type="text" name="telefono" required autofocus autocomplete="name" />
+            <x-input-error :messages="$errors->get('telefono')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
@@ -74,6 +92,20 @@ new #[Layout('layouts.guest')] class extends Component
                             name="password_confirmation" required autocomplete="new-password" />
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        </div>
+
+        <div class="mt-4" >
+            <x-input-label for="persona" :value="__('Soy')" />
+                <select wire:model="persona" class="mt-1 block w-full" >
+                    <option selected >¿ Cómo te consideras como persona ?</option>
+                    <option value="Activo(a)">Activo(a)</option>
+                    <option value="Muy activo(a)">Muy activo(a)</option>
+                    <option value="Poco activo(a)">Poco activo(a)</option>
+                    <option value="Sedentario(a)">Sedentario(a)</option>
+                    <option value="Nervioso(a)">Nervioso(a)</option>
+                    <option value="Ansioso(a)">Ansioso(a)</option>
+                </select>
+            <x-input-error :messages="$errors->get('persona')" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4">

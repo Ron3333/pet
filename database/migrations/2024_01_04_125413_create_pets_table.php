@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('comidas_al_dia')->nullable();
             $table->string('dormir')->nullable();
             $table->string('edad');
-            $table->datetime('fecha_nac')->nullable();
+            $table->string('fecha_nac');
             $table->string('foto');
             $table->string('indicaciones_de_Comida')->nullable();
             $table->text('info_adicional')->nullable();

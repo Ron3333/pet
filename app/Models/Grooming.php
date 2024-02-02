@@ -3,16 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 use Illuminate\Database\Eloquent\Model;
+
 
 class Grooming extends Model
 {
     use HasFactory;
 
     protected $table = 'grooming';
+   
 
     protected $fillable = [
-		
 		'Cancelado',
 		'cobro_multiple',
 		'comprobante_2do_pago',

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('activar_horario_especial')->nullable();
             $table->string('administrador')->nullable();
-            $table->string('Apellido')->nullable();
+            $table->string('apellido')->nullable();
             $table->integer('cant_perro')->nullable();
             $table->decimal('costo_dias_feriado', 10, 2)->unsigned()->nullable();
             $table->decimal('costo_dias_normales', 10, 2)->unsigned()->nullable();
